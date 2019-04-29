@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="https://raohmaru.com/css/sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>https://raohmaru.com</loc>
+	<lastmod>2019-04-27</lastmod>
+	<changefreq>yearly</changefreq>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://raohmaru.com/blog/</loc>
+	<lastmod>2019-04-26</lastmod>
+	<changefreq>monthly</changefreq>
+	<priority>0.5</priority>
+</url>
+</urlset>

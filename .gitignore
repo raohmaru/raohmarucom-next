@@ -1,0 +1,8 @@
+art/
+dist/
+src/blog/
+src/rol/
+src/v1
+node_modules/
+scr/.htaccess
+src/.php.ini

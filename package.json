@@ -1,0 +1,60 @@
+{
+  "name": "raohmarucom",
+  "title": "raohmaru.com website",
+  "version": "2.0.0",
+  "description": "Official website of Raul Parralejo",
+  "main": "index.html",
+  "scripts": {
+    "build": "npm-run-all -l scaffold html css js assets",
+    "build:prod": "cross-env NODE_ENV=production npm-run-all -l clean scaffold css assets minify",
+    "clean": "del-cli dist/*",
+    "scaffold": "make-dir dist/js",
+    "html": "copy-cli src/*.html dist/",
+    "css": "postcss -d dist/css/ src/css/main.css",
+    "js": "copy-cli src/js/* dist/js/",
+    "assets": "npm-run-all assets:*",
+    "assets:meta": "copy-cli \"src/*.@(png|xml|txt)\" dist/",
+    "assets:img": "copy-cli src/img/** dist/img/",
+    "minify": "npm-run-all -l minify:* replace",
+    "minify:html": "html-minifier -c .htmlminifierrc --output-dir dist/ --input-dir src/ --file-ext html",
+    "minify:css": "cross-var cssnano dist/css/main.css dist/css/main.$npm_package_version.min.css --no-autoprefixer --no-calc",
+    "minify:js": "cross-var minify --out-file dist/js/main.$npm_package_version.min.js src/js/main.js",
+    "replace": "cross-var replace \"\\.(css|js)\" \".$npm_package_version.min.$1\" dist/index.html dist/404.html -q",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raohmaru/raohmarucom-next.git"
+  },
+  "author": {
+    "name": "Raohmaru",
+    "url": "https://twitter.com/raulparralejo"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raohmaru/raohmarucom-next/issues"
+  },
+  "homepage": "https://raohmaru.com",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "devDependencies": {},
+  "dependencies": {
+    "babel-minify": "^0.5.0",
+    "copy": "0.3.2",
+    "cross-env": "5.2.0",
+    "cross-var": "1.1.0",
+    "cssnano": "4.1.10",
+    "cssnano-cli": "1.0.5",
+    "del": "4.1.1",
+    "del-cli": "1.1.0",
+    "html-minifier": "4.0.0",
+    "make-dir-cli": "2.0.0",
+    "npm-run-all": "4.1.5",
+    "postcss": "7.0.14",
+    "postcss-cli": "6.1.2",
+    "postcss-import": "12.0.1",
+    "replace": "1.1.0"
+  }
+}

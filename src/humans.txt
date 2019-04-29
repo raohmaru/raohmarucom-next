@@ -1,0 +1,40 @@
+raohmaru.com
+[EN] Official site of Raul Parralejo. Frontend engineeer, mercenary of the code, nomadic programmer. Site maintained by a mogwai.
+
+/* TEAM */
+    Owner: Raúl Parralejo
+    Twitter: @raulparralejo
+    Location: Cornella de Llobregat, Catalunya, Spain
+
+/* SITE */
+    Standards: HTML5, CSS3, ES2015+
+    Components: Vanilla JS
+
+
+                       RRRRRRRRR                
+                    RRRRRRRRRRRRRRR             
+                 RRRRRRRRRRRRRRRRRRRRR          
+             RRRRRRRRRRRRRRRRRRRRRRRRRRRRR      
+          RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR   
+         RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR 
+        RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRr
+        RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+        RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+        RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+        RR   RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+        RR      RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+        RR         RRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+        RR            RRRRRRRRRRRRRRRRRRRRRRRRRR
+        RR     RR      RRRRRRRRRRRRRRRRRRRRRRRRR
+        RR     RRRr     RRRRRRRRRRRRRRRRRRRRRRRR
+        RR       RR     RRRRRRRRRRRRRRRRRRRRRRRR
+        RR              RRRRRRRRRRRRRRRRRRRRRRRR
+        RR             RRRRRRRRRRRRRRRRRRRRRRRRR
+        RR     RRR     RRRRRRRRRRRRRRRRRRRRRRRR 
+        ,RRR,  RRRR     RRRRRRRRRRRRRRRRRRRRRRR 
+          RRRRRRRRR     RRRRRRRRRRRRRRRRRRRRR   
+             RRRRRR     RRRRRRRRRRRRRRRRRR      
+                 RRRRRRRRRRRRRRRRRRRRR          
+                    RRRRRRRRRRRRRRR             
+                       RRRRRRRRR                
+                           R                    
