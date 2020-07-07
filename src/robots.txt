@@ -4,6 +4,7 @@ Disallow: /blog/wp-includes/
 Disallow: /demo/
 Disallow: /img/
 Disallow: /v1/
+Disallow: /v2/
 Disallow: /rol/
 Disallow: /rol/wiki/Special:Search
 Disallow: /rol/wiki/Special:Random

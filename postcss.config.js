@@ -3,7 +3,14 @@ module.exports = (ctx) => {
 	return Object.assign({}, ctx.options, {
 		map: !isProd,
 		plugins: [
-			require('postcss-import')()
+			require('postcss-preset-env')(),
+			require('postcss-import')(),
+			require('autoprefixer')(),
+			isProd && require('cssnano')({
+				preset: ['default', {
+					autoprefixer: false
+				}]
+			})
 		]
 	});
 }

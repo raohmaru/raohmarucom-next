@@ -1,0 +1,32 @@
+@import url(lib/normalize.css);
+@import url(modules/layout.css);
+@import url(modules/footer.css);
+@import url(modules/theme.css);
+
+@keyframes e404__logo {
+	from { transform: scale(0.0); }
+	to   { transform: scale(1.0); }
+}
+
+.e404__logo {
+	position: relative;
+	animation: e404__logo 0.5s ease-out;
+}
+.e404__hello {
+	position: relative;
+	width: 200px;
+	padding-bottom: 25px;
+	text-align: left;
+}
+	.e404__hello-text {
+		position: absolute;
+		top: 60px;
+		left: 0;
+		opacity: 0;
+		transform: skew(0,-26deg);
+	}
+	.e404__anim .e404__hello-text {
+		top: 0px;
+		opacity: 1;
+		transition: all 0.5s ease-out;
+	}

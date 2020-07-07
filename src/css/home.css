@@ -1,0 +1,24 @@
+@import url(lib/normalize.css);
+@import url(modules/layout.css);
+@import url(modules/footer.css);
+@import url(modules/theme.css);
+
+@keyframes home__logo {
+	from { opacity: 0; top: 40px; }
+	to   { opacity: 1; top: 0; }
+}
+
+.home__logo {
+	position: relative;
+	cursor: pointer;
+	animation: home__logo 1.5s ease-out 1s backwards;
+	transition: transform 0.2s ease;
+}
+	.home__logo:active {
+		transform: scale(0.9, 0.9);
+	}
+
+.maincanvas {
+	position: fixed;
+	display: block;
+}

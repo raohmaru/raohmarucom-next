@@ -1,8 +1,10 @@
 art/
+build/
 dist/
 src/blog/
 src/rol/
-src/v1
+src/v1/
+src/v2/
 node_modules/
-scr/.htaccess
+src/.htaccess
 src/.php.ini

@@ -1,70 +1,31 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Page not found | raohmaru.com</title>
-<meta name=description content="The page was not found. The mogwai asks: What are you looking for?">
-<meta name=viewport content="width=device-width, initial-scale=1">
 
-<link rel=apple-touch-icon href="apple-touch-icon.png">
-<link rel=stylesheet href='/css/main.css'>
-<script>
-// https://www.hackmanit.de/script/foo.js
-window.name="";
-document.designMode = "off";
-if (top !== self) top.location.replace(self.location.href);
-</script>
+<head>
+	<meta charset="utf-8">
+	<title>Page not found | raohmaru.com</title>
+	<meta name="description" content="The page was not found. The mogwai asks: What are you looking for?">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="apple-touch-icon" href="icon.png">
+	<link rel="stylesheet" href='/css/404<!-- @echo version -->.css'>
+	<meta name="theme-color" content="#2887d5">
 </head>
 
 <body>
-<canvas class=bgcanvas width="1" height="1"></canvas>
-
-<main class=container role=main>
-	<header class=header>
-		<div class=e404>
-			<div class=e404__hello>
-				<p class=e404__hello-text>Dr. User,<br/>I presume</p>
+	<main class="container" role="main">
+		<header class="header">
+			<div class="e404">
+				<div class="e404__hello">
+					<p class="e404__hello-text">Dr. User,<br/>I presume</p>
+				</div>
+				<img src="/img/404-white-hollow-pixel.gif" width="200" height="200" alt="?" class="e404__logo" />
 			</div>
-			<img src="/img/404-white-hollow.svg" width=200 height=210 alt="?" class=e404__logo />
-		</div>
-	</header>
-	
-	<footer class=footer role=contentinfo>
-		<ul>
-			<li class="footer__item footer__sep">
-				©2019 <span>Raul Parralejo</span>
-			</li>
-			<li class="footer__item footer__job footer__sep">
-				Frontend engineer
-			</li>
-			<li class="footer__item footer__icons">
-				<a href="https://raohmaru.com/blog" class="sprite icon-blog" title="Blog" rel="noopener" rel="noreferrer">Blog</a>
-			</li>
-			<li class="footer__item footer__icons">
-				<a href="https://es.linkedin.com/in/raulpn" target="_blank" class="sprite icon-linkedin" title="My LinkedIn profile" rel="me external" rel="noopener" rel="noreferrer">LinkedIn</a>
-			</li>
-			<li class="footer__item footer__icons">
-				<a href="https://twitter.com/raulparralejo" target="_blank" class="sprite icon-twitter" title="Follow me on Twitter" rel="external" rel="noopener" rel="noreferrer">Twitter</a>
-			</li>
-			<li class="footer__item footer__icons">
-				<a href="https://github.com/raohmaru" target="_blank" class="sprite icon-github" title="My repositories in GitHub" rel="noopener" rel="noreferrer">GitHub</a>
-			</li>
-		</ul>
-	</footer>
-</main>
+		</header>
 
-<script src='/js/main.js'></script>
-<script>
-setTimeout(() => document.querySelector(".e404").classList.add('e404__anim'), 500);
-</script>
-
-<!-- Asynchronous Google Analytics snippet -->
-<!-- <script>
-var _gaq=[['_setAccount','UA-28420764-1'],['_trackPageview']];
-(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-s.parentNode.insertBefore(g,s)}(document,'script'));
-</script> -->
+		<!-- @include-static modules/footer.html -->
+	</main>
 
 </body>
 </html>
