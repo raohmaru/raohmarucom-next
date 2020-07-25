@@ -5,6 +5,7 @@ module.exports = (ctx) => {
 		plugins: [
 			require('postcss-preset-env')(),
 			require('postcss-import')(),
+			require('postcss-nested')(),
 			require('autoprefixer')(),
 			isProd && require('cssnano')({
 				preset: ['default', {

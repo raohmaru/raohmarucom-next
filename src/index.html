@@ -24,12 +24,18 @@
 
 	<main class="container" role="main">
 		<header class="header">
-			<img src="/img/logo-white-hollow-pixel.gif" width="200" height="200" alt="Raul Parralejo's monogram" class="home__logo" />
+			<div class="header__content">
+				<img src="/img/logo-white-hollow-pixel.gif" width="200" height="200" alt="Raul Parralejo's monogram" class="logo home__logo" />
+				<ul class="header__text">
+					<li class="home__option" data-option="1" tabindex="1">Start</li>
+					<li class="home__option" data-option="2" tabindex="1">Options</li>
+				</ul>
+			</div>
 		</header>
 
-		<!-- @include-static modules/footer.html -->
+		<!-- @include-static modules/footer/footer.html -->
 	</main>
 
-	<script src='/js/main<!-- @echo version -->.js'></script>
+	<script type="module" src='/js/main<!-- @echo version -->.js' defer></script>
 </body>
 </html>

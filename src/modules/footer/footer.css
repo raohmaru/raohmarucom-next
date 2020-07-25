@@ -1,0 +1,72 @@
+@keyframes footer {
+	from { height: 0; }
+	to   { height: 56px; }
+}
+
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	overflow: hidden;
+	background-color: rgba(0,0,0,0.4);
+	/* animation: footer 0.5s ease-out 2s backwards; */
+	height: 0;
+	will-change: transform;
+}
+	.footer__list {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0 15px;
+	}
+		.footer__item {
+			min-width: 24px;
+			padding: 0 5px;
+			list-style: none;
+			font-size: 10px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			display: inline-block;
+
+			&:last-child {
+				padding-right: 0;
+			}
+		}
+
+		.footer__job {
+			display: none;
+
+			@media only screen and (min-width: 600px) {
+				display: inline-block;
+			}
+		}
+
+		.footer__sep:after {
+			content: " *";
+			margin: 0 .4em;
+			font-weight: 400;
+		}
+
+.sprite {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	text-indent: -999em;
+	background-image: url(/img/web-sprites-v4.png);
+	background-repeat: no-repeat;
+	transition: all 0.2s ease-out;
+
+	&:hover,
+	&:focus {
+		transform: translate(-3px, -3px);
+	}
+}
+.linkedin { background-position: 0 -24px; }
+.twitter  { background-position: -24px -24px; }
+/* .rss      { background-position: -48px 0; } */
+.blog     { background-position: -48px -24px; }
+/* .close    { background-position: -24px 0; } */
+.github   { background-position: 0 0; }

@@ -1,52 +1,55 @@
-(function(){
+import ecs from './libs/ecs/ecs.js';
+import Beat from './util/beat.js';
+import scenes from './scenes/index.js';
+import { SceneMan, Motion, Keyboard } from './systems/index.js';
+import { r2d } from './render/index.js';
+import { throttle, once } from './util/event.js';
+import { $ } from './util/dom.js';
 
-// http://sampsonblog.com/749/simple-throttle-function
-function throttle(callback, limit) {
-	let wait = false;
-	return (...args) => {
-		if (!wait) {
-			callback.apply(callback, args);
-			wait = true;
-			window.setTimeout(() => {
-				wait = false;
-			}, limit);
-		}
-	}
+let stage;
+let beat;
+
+function resizeCanvas() {
+	stage.resize(window.innerWidth, window.innerHeight);
 }
 
-function initCanvas() {
-	const canvas = document.querySelector('.bgcanvas');
-	let cnvWidth;
-	let cnvHeight;
-	if(canvas && canvas.getContext){
-		ctx = canvas.getContext('2d');
-		start();
-	} else {
-		return;
-	}
+function frame(delta, currentTime) {
+	ecs.update(delta, currentTime);
+}
 
-	function start() {
-		resizeCanvas();
-		window.addEventListener('resize', throttle(resizeCanvas, 50), false);
-	}
-
-	function resizeCanvas() {
-		canvas.width  = cnvWidth  = window.innerWidth;
-		canvas.height = cnvHeight = window.innerHeight;
-	}
-
-	function draw() {
-		ctx.clearRect(0, 0, cnvWidth, cnvHeight);
-		ctx.fillStyle = '#268ad9';
-		ctx.fillRect(0, 0, cnvWidth, cnvHeight);
-		window.requestAnimationFrame(draw);
-	}
+function start() {
+	beat = new Beat(60, frame);
+	beat.start();
+	window.Game = {
+		stage,
+		beat,
+		ecs,
+		scene: SceneMan(scenes),
+		motion: Motion(),
+		input: Keyboard(stage.getCanvas())
+	};
+	ecs.addSystems(
+		Game.scene,
+		Game.motion
+	);
+	resizeCanvas();
+	window.addEventListener('resize', throttle(resizeCanvas, 50), false);
+	Game.scene.next();
 }
 
 function init() {
-	initCanvas();
+	stage = new r2d($('.maincanvas'), {
+		scale: 2,
+		antialias: false
+	});
+	if(stage.getCanvas()) {
+		start();
+	} else {
+		$('.header__text').textContent = 'Your browser don\'t wanna play :(';
+	}
 }
 
-init();
-
-})();
+once($('.home__option[data-option="1"]'), 'click', e => {
+	$('.header__content').classList.add('disabled');
+	window.setTimeout(init, /* 1000 */);
+});
