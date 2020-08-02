@@ -11,7 +11,7 @@ export default function pixelateText(canvas, text, maxSize, style) {
 		const tm = canvas.getContext().measureText(text);
 		if (tm.width) {
 			// Find height of text
-			const pixels = canvas.getContext().getImageData(0, h, tm.width, 1).data;
+			const pixels = canvas.getPixels(0, h, tm.width, 1).data;
 			for (let i = 0; i < pixels.length; i += 4) {
 				if(pixels[i] + pixels[i+1] + pixels[i+2] + pixels[i+3] > 0) {
 					h += 1;
@@ -19,6 +19,6 @@ export default function pixelateText(canvas, text, maxSize, style) {
 				}
 			}
 		}
-		return [canvas.getCanvas(), 0, 0, tm.width, h];
+		return [canvas, 0, 0, tm.width, h];
 	}
 }

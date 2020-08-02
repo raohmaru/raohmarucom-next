@@ -67,3 +67,12 @@
 		animation: home-option 0.3s linear 1.75s backwards;
 	}
 }
+
+.stats {
+	position: absolute;
+    top: 0;
+    left: 0;
+    padding: 4px;
+    font-size: 8px;
+	background-color: #000;
+}

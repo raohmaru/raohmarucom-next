@@ -24,9 +24,13 @@ const getMask = (comps) => {
 	}, 0);
 };
 
-const updateGroups = (entity) => {
+const updateGroups = (entity, remove) => {
 	for (let group of groups.values()) {
-		group.match(entity);
+		if(remove) {
+			group.remove(entity);
+		} else {
+			group.match(entity);
+		}
 	}
 };
 
@@ -43,14 +47,23 @@ export default {
 		if (entities[id]) {
 			throw new Error('The entity already exists');
 		}
-		let entity = new Entity(id);
+		const entity = new Entity(id);
 		entities.set(id, entity);
 		entity.addComponents = new Proxy(entity.addComponents, Entity_addComponents_proxy);
 		return entity;
 	},
 
+	destroyEntity(id) {
+		const entity = entities.get(id);
+		if (entity) {
+			updateGroups(entity, true);
+			entity.dispose();
+			entities.delete(id);
+		}
+	},
+
 	getEntity(id) {
-		return entities.get(id)
+		return entities.get(id);
 	},
 
 	getEntitiesByComponents(...comps) {

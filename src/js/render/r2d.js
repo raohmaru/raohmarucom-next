@@ -17,6 +17,11 @@ export default class r2d {
 	get width() { return this.cnvWidth; }
 	get height() { return this.cnvHeight; }
 
+	get options() { return this._opt; }
+	set options(obj) {
+		Object.assign(this._opt, obj);
+	}
+
 	_setStyle(style) {
 		style.fillStyle   && (this._ctx.fillStyle = style.fillStyle);
 		style.strokeStyle && (this._ctx.strokeStyle = style.strokeStyle);
@@ -26,6 +31,15 @@ export default class r2d {
 	_applyStyle(style) {
 		style.fillStyle   && this._ctx.fill();
 		style.strokeStyle && this._ctx.stroke();
+	}
+
+	line(x, y, dx, dy, style) {
+		this._setStyle(style);
+		this._ctx.beginPath();
+		this._ctx.moveTo(x | 0, y | 0);
+		this._ctx.lineTo(dx | 0, dy | 0);
+		this._ctx.closePath();
+		this._ctx.stroke();
 	}
 
 	rect(x, y, width, height, style = {}) {
@@ -67,15 +81,15 @@ export default class r2d {
 		this._ctx.fillText(text, x, y);
 	}
 
-	drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) {
+	drawImage(image, sx = 0, sy = 0, sWidth, sHeight, dx, dy, dWidth, dHeight) {
 		this._ctx.drawImage(
-			image,
-			sx | 0,
-			sy | 0,
+			image.getCanvas(),
+			dx !== undefined ? sx | 0 : 0,
+			dy !== undefined ? sy | 0 : 0,
 			sWidth || image.width,
 			sHeight || image.height,
-			dx | 0,
-			dy | 0,
+			dx | sx,
+			dy | sy,
 			dWidth || image.width,
 			dHeight || image.height
 		);
@@ -99,8 +113,8 @@ export default class r2d {
 		this._ctx.imageSmoothingEnabled = this._opt.antialias;
 	}
 
-	setOptions(options) {
-		Object.assign(this._opt, options);
+	redraw(x = 0, y = 0) {
+		this._ctx.drawImage(this._canvas, x, y);
 	}
 
 	getCanvas() {
@@ -109,6 +123,14 @@ export default class r2d {
 
 	getContext() {
 		return this._ctx;
+	}
+
+	getPixel(x, y) {
+		return this._ctx.getImageData(x, y, 1, 1);
+	}
+
+	getPixels(...args) {
+		return this._ctx.getImageData(...args);
 	}
 
 	dispose() {

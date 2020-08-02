@@ -1,10 +1,10 @@
-export default function SceneMan(scenes) {
-	let idx = -1;
+export function SceneMan(scenes) {
+	let idx = 1;
 	let scene;
 
 	return {
-		update: (delta) => {
-			scene.update(delta);
+		update: (delta, currentTime) => {
+			scene.update(delta, currentTime);
 		},
 
 		next: () => {

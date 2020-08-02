@@ -40,7 +40,7 @@ Spice.prototype = Object.assign(Object.create(Object.prototype), {
 		}
 		let elapsed = (time - this.startTime) / this.duration;
 		elapsed = elapsed > 1 ? 1 : elapsed;
-		if (!this.skip || elapsed < 1 && this._i++ % this.skip !== 0) {
+		if (this.skip !== 0 && elapsed < 1 && (this._i++ % this.skip) !== 0) {
 			return true;
 		}
 		const value = this.easing(elapsed);

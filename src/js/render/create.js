@@ -7,7 +7,7 @@ export function create(w, h, options) {
 	let cnv;
 	if (canvases.length) {
 		cnv = canvases.pop();
-		cnv.setOptions(options);
+		cnv.options = options;
 	} else {
 		const canvas = document.createElement('canvas');
 		cnv = new r2d(canvas, options);

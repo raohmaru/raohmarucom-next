@@ -40,7 +40,7 @@ export function randomInt(min, max) {
 
 export function randomBool(perc) {
 	if(perc !== undefined) {
-		return rnd <= perc;
+		return rnd() <= perc;
 	}
 	return !!round(rnd());
 }

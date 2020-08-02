@@ -13,4 +13,8 @@ export default class Group {
 			this._entities.add(entity);
 		}
 	}
+
+	remove(entity) {
+		this._entities.delete(entity);
+	}
 }

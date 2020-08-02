@@ -35,3 +35,39 @@ export default class Rectangle {
 		return [this.x, this.y, this.width, this.height];
 	}
 }
+
+Rectangle.intersect = (rect1, rect2, rect) => {
+	const x      = rect1.x > rect2.x ? rect1.x : rect2.x;
+	const y      = rect1.y > rect2.y ? rect1.y : rect2.y;
+	const width  = rect1.right > rect2.right ? rect2.right - x : rect1.right - x;
+	const height = rect1.bottom > rect2.bottom ? rect2.bottom - y : rect1.bottom - y;
+	if(!rect) {
+		rect = new Rectangle(width, height, x, y);
+	} else {
+		rect.width  = width;
+		rect.height = height;
+		rect.x      = x;
+		rect.y      = y;
+	}
+	return rect;
+}
+
+
+Rectangle.union = (...args) => {
+	let x = Infinity,
+		y = Infinity,
+		width = 0,
+		height = 0,
+		a;
+	for(let i = 0, len = args.length; i < len; i++) {
+		a = args[i];
+		if (a instanceof Rectangle) {
+			a = a.toArray();
+		}
+		x = Math.min(x, a[0]);
+		y = Math.min(y, a[1]);
+		width = Math.max(x + width, a[0] + a[2]) - x;
+		height = Math.max(y + height, a[1] + a[3]) - y;
+	}
+	return new Rectangle(width, height, x, y);
+}

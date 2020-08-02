@@ -1,21 +1,26 @@
 import Scene from './scene.js';
 import pixelateText from '../render/effects/pixelate.js';
 import { create, drop } from '../render/index.js';
-import Spice from '../libs/paprika/spice.js';
-import Recipe from '../libs/paprika/recipe.js';
 
 const texts = [
-	['Hello.',           500, 1500],
-	['If you want to',   500, 1300],
-	['see my profile,',    0, 1300],
-	['you need to',      300, 1400],
-	['beat a game.',       0, 2000],
-	['Ready?',          1000, 0],
-	['press [space] to play', 2000, 0, 1, 40]
+	['Hello.',                 500, 1500],
+	['If you want to',           0, 1300],
+	['know how I am,',           0, 1300],
+	['you need to',              0, 1200],
+	['play a game.',             0, 2000],
+	['Ready?',                1000, 0],
+	['press [space] to play', 2000, 0, 1, 40],
+	[],
+	['3', 0, 500, 6],
+	['2', 0, 500, 6],
+	['1', 0, 500, 6]
 ];
-const style = {
+const txtStyle = {
 	font: 'px press_start_kregular, sans-serif',
 	fillStyle: '#000000'
+};
+const bgcolor = {
+	fillStyle: '#ffffff'
 };
 
 export default class extends Scene {
@@ -25,30 +30,36 @@ export default class extends Scene {
 	}
 
 	init() {
+		this._txtIdx = -1;
 		this.canvas = create();
 		this.nextText();
-		Game.input.on('Space', this.keyPress.bind(this));
+		Game.input.keys.on('Space', this.keyPress.bind(this));
 	}
 
 	nextText() {
-		if (!texts.length) {
+		if (++this._txtIdx >= texts.length) {
+			Game.scene.next();
 			return;
 		}
-		const [text, delay, dur, scale, offsetY] = texts.shift();
-		this.prepareText(text, scale, offsetY);
-		const recipe = new Recipe(this.nextText.bind(this));
-		recipe.add( this.createSpice(0, 8, delay) );
-		if (dur) {
-			recipe.add( this.createSpice(8, 0, dur) );
+		const item = texts[this._txtIdx];
+		if (!item.length) {
+			return;
 		}
-		Game.motion.add(recipe);
+		const [text, delay, dur, scale, offsetY] = item;
+		this.prepareText(text, scale, offsetY);
+		const tl = Game.motion.timeline(this.nextText.bind(this));
+		tl.add( this.createMotion(0, 8, delay) );
+		if (dur) {
+			tl.add( this.createMotion(8, 0, dur) );
+		}
+		Game.motion.add(tl);
 	}
 
 	prepareText(text, scale = 3, offsetY = 0) {
-		this.pixelText = pixelateText(this.canvas, text, 8, style);
+		this.pixelText = pixelateText(this.canvas, text, 8, txtStyle);
 		const w = this.canvas.width * scale;
 		const h = w * (this.canvas.height / this.canvas.width);
-		this.destRect = [
+		this._destRect = [
 			Game.stage.width / 2 - w / 2,
 			Game.stage.height / 2 - h / 2 + offsetY,
 			w,
@@ -56,8 +67,8 @@ export default class extends Scene {
 		];
 	}
 
-	createSpice(startSize, endSize, delay) {
-		return new Spice({
+	createMotion(startSize, endSize, delay) {
+		return Game.motion.create({
 			from: { size: startSize },
 			to: { size: endSize },
 			duration: 500,
@@ -68,22 +79,22 @@ export default class extends Scene {
 	}
 
 	onUpdateSpice(p, model) {
-		Game.stage.rect(...this.destRect, {
-			fillStyle: '#ffffff'
-		});
+		Game.stage.rect(...this._destRect, bgcolor);
 		Game.stage.drawImage(
 			...this.pixelText(model.size),
-			...this.destRect
+			...this._destRect
 		);
 	}
 
 	keyPress() {
-		Game.input.off('Space');
-		Game.scene.next();
+		Game.input.keys.off('Space');
+		Game.stage.clear(bgcolor);
+		this._txtIdx = 7;
+		Game.motion.stop();
+		this.nextText();
 	}
 
 	end() {
-		Game.motion.stop();
 		drop(this.canvas);
 		this.canvas = null;
 		this.pixelText = null;

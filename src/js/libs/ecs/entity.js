@@ -36,4 +36,15 @@ export default class Entity {
 	getComponent(component) {
 		return this._components.get(component);
 	}
+
+	getComponents() {
+		return this._components;
+	}
+
+	dispose() {
+		this._components.forEach((component) => {
+			component.dispose && component.dispose();
+		});
+		this._components = null;
+	}
 }
