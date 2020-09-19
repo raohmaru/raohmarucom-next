@@ -10,7 +10,7 @@ function factorial() {
 		if (a[n]) {
 			return a[n];
 		}
-		for (var let i = n; i > 1; i--) {
+		for (let i = n; i > 1; i--) {
 			s *= i;
 		}
 		a[n] = s;

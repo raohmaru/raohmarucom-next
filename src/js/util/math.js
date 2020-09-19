@@ -44,3 +44,7 @@ export function randomBool(perc) {
 	}
 	return !!round(rnd());
 }
+
+export function clamp(num, min, max) {
+	return Math.max(Math.min(num, max), min);
+}

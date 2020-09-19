@@ -1,32 +1,21 @@
-import Signal from '../util/signal.js';
+import EventSignal from '../util/event-signal.js';
 
 export function Mouse(canvas) {
-	const signals = {};
-	const api = {
-		mouseDown: false,
-		on: (event, cb) => {
-			if (!signals[event]) {
-				signals[event] = new Signal(cb);
-				signals[event](cb);
-			}
-		},
-		off: (event, cb) => {
-			if (signals[event]) {
-				if (cb) {
-					signals[event].remove(cb);
-				} else {
-					signals[event].clear();
-				}
-			}
-		}
-	}
+	const api = EventSignal();
+	api.mouseDown = false;
+
 	canvas.addEventListener('click', onClick);
 	canvas.addEventListener('mousedown', onMouseDown);
 	canvas.addEventListener('mouseup', onMouseUp);
 	canvas.addEventListener('mousemove', onMouseMove);
 
+	canvas.addEventListener('touchstart', onMouseDown);
+	canvas.addEventListener('touchend', onMouseUp);
+	canvas.addEventListener('touchcancel', onMouseUp);
+	canvas.addEventListener('touchmove', onMouseMove);
+
 	function onClick(e) {
-		signals[e.type] && signals[e.type]();
+		api.fire(e.type);
 	}
 
 	function onMouseDown(e) {
@@ -38,8 +27,17 @@ export function Mouse(canvas) {
 	}
 
 	function onMouseMove(e) {
-		api.x = e.clientX / Game.stage.options.scale;
-		api.y = e.clientY / Game.stage.options.scale;
+		let x;
+		let y;
+		if (e.touches) {
+			x = e.touches[0].clientX;
+			y = e.touches[0].clientY;
+		} else {
+			x = e.clientX;
+			y = e.clientY;
+		}
+		api.x = x / Game.stage.options.scale;
+		api.y = y / Game.stage.options.scale;
 	}
 
 	return api;

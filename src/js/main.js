@@ -1,10 +1,10 @@
+import cfg from './cfg.js';
 import ecs from './libs/ecs/ecs.js';
 import Beat from './util/beat.js';
+import state from './util/state.js';
 import scenes from './scenes/index.js';
 import * as comps from './comps/index.js';
-import {
-	SceneMan, Motion, Input, BackgroundMan, Renderer, MoveMaster, MouseLord, Collider
-} from './systems/index.js';
+import { SceneMan, Motion, Input, BackgroundMan } from './systems/index.js';
 import { r2d } from './render/index.js';
 import { throttle, once } from './util/event.js';
 import { $ } from './util/dom.js';
@@ -20,31 +20,29 @@ function resizeCanvas() {
 function frame(delta, currentTime) {
 	ecs.update(delta, currentTime);
 
-	if ((currentTime | 0) % 60 === 0) {
+	if ((currentTime | 0) % cfg.fps === 0) {
 		$stats.textContent = (1000 / delta).toFixed(2);
 	}
 }
 
 function start() {
-	beat = new Beat(60, frame);
+	beat = new Beat(cfg.fps, frame);
 	beat.start();
 	window.Game = {
+		cfg,
 		stage,
 		beat,
 		ecs,
-		scene: SceneMan(scenes),
-		motion: Motion(),
-		input: Input(stage.getCanvas())
+		scene: new SceneMan(scenes),
+		motion: new Motion(),
+		input: Input(stage.getCanvas()),
+		state: state(cfg.state)
 	};
 	ecs.registerComponents(...Object.values(comps));
 	ecs.addSystems(
 		Game.scene,
 		Game.motion,
-		BackgroundMan(),
-		MouseLord(),
-		MoveMaster(),
-		Collider(),
-		Renderer()
+		new BackgroundMan()
 	);
 	resizeCanvas();
 	window.addEventListener('resize', throttle(resizeCanvas, 50), false);
@@ -53,8 +51,8 @@ function start() {
 
 function init() {
 	stage = new r2d($('.maincanvas'), {
-		scale: 2,
-		antialias: false
+		scale: cfg.scale,
+		antialias: cfg.antialias
 	});
 	if(stage.getCanvas()) {
 		start();

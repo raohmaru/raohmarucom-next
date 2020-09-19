@@ -1,15 +1,17 @@
+import { Sprite, Movement } from '../comps/index.js';
+
 // const max = Math.max;
 
 export function MoveMaster() {
-	const entities = Game.ecs.getEntitiesByComponents('Sprite', 'Movement').entities;
+	const entities = Game.ecs.getEntitiesByComponents(Sprite, Movement).entities;
 
 	return {
 		update: (delta, currentTime) => {
 			let sp, mv;
 
 			entities.forEach(e => {
-				sp = e.getComponent('Sprite');
-				mv = e.getComponent('Movement');
+				sp = e.getComponent(Sprite);
+				mv = e.getComponent(Movement);
 				if (mv.x !== undefined) {
 					let dx = (mv.x - sp.x) / 10 + sp.x;
 					// const x1 = sp.x < dx ? sp.x : dx;

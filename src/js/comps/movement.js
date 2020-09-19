@@ -5,4 +5,9 @@ export class Movement {
 		this.left = left;
 		this.right = right;
 	}
+
+	reset() {
+		this.x = undefined;
+		this.y = undefined;
+	}
 };

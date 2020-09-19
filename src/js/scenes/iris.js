@@ -12,14 +12,15 @@ export default class Intro extends Scene {
 		Game.ecs
 			.createEntity('transition')
 			.addComponents(
-				new Background(),
-				new Transition(
-					Game.stage.width / 2,
-					Game.stage.height / 2 - 30,
-					20,
-					'#ffffff',
-					Game.scene.next
-				)
+				new Background(
+					new Transition(
+						Game.stage.width / 2,
+						Game.stage.height / 2 - 30,
+						20,
+						'#ffffff',
+						Game.scene.next
+					)
+				),
 			);
 	}
 

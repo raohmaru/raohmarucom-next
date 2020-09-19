@@ -1,83 +1,23 @@
-function mapValues(obj, fn) {
-	return Object.keys(obj).reduce((result, key) => {
-		result[key] = fn(obj[key], key);
-		return result;
-	}, {});
-}
+import Signal from './signal.js';
 
-function pick(obj, fn) {
-	return Object.keys(obj).reduce((result, key) => {
-		if (fn(obj[key])) {
-			result[key] = obj[key];
+function createStateFrom(obj, res) {
+	Object.keys(obj).forEach((k) => {
+		if (typeof obj[k] === 'object') {
+			res[k] = {};
+			return createStateFrom(obj[k], res[k]);
 		}
-		return result;
-	}, {});
-}
-
-function bindActionCreator(actionCreator, dispatch) {
-	return (...args) => dispatch(actionCreator(...args));
-}
-
-export function bindActionCreators(actionCreators, dispatch) {
-	return typeof actionCreators === 'function' ?
-		bindActionCreator(actionCreators, dispatch) :
-		mapValues(actionCreators, actionCreator =>
-			bindActionCreator(actionCreator, dispatch)
-		);
-}
-
-export function compose(...funcs) {
-	return arg => funcs.reduceRight((composed, f) => f(composed), arg);
-}
-
-export function combineReducers(reducers) {
-	var finalReducers = pick(reducers, (val) => typeof val === 'function');
-	return (state = {}, action) => mapValues(finalReducers,
-	(reducer, key) => reducer(state[key], action)
-	);
-}
-
-export function createStore(reducer, initialState) {
-	var currentReducer = reducer;
-	var currentState = initialState;
-	var listeners = [];
-	var isDispatching = false;
-
-	function getState() {
-		return currentState;
-	}
-
-	function subscribe(listener) {
-		listeners.push(listener);
-
-		return function unsubscribe() {
-			var index = listeners.indexOf(listener);
-			listeners.splice(index, 1);
+		res[k] = {
+			change: new Signal(),
+			set: function(v) {
+				this.value = v;
+				this.change(v);
+			},
+			value: obj[k]
 		};
-	}
+	});
+	return res;
+}
 
-	function dispatch(action) {
-		if (isDispatching) {
-			throw new Error('Reducers may not dispatch actions.');
-		}
-
-		try {
-			isDispatching = true;
-			currentState = currentReducer(currentState, action);
-		} finally {
-			isDispatching = false;
-		}
-
-		listeners.slice().forEach(listener => listener());
-		return action;
-	}
-
-	function replaceReducer(nextReducer) {
-		currentReducer = nextReducer;
-		dispatch({ type: '@@redux/INIT' });
-	}
-
-	dispatch({ type: '@@redux/INIT' });
-
-	return { dispatch, subscribe, getState, replaceReducer };
+export default function state(obj) {
+	return createStateFrom(obj, {});
 }

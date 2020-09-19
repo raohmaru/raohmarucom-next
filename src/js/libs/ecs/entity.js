@@ -3,7 +3,7 @@ let currentId = 1;
 export default class Entity {
 	constructor(id) {
 		this._id = id || (currentId++).toString(36);
-		this._components = new Map();
+		this._comps = new Map();
 		this._mask = 0;
 	}
 
@@ -11,40 +11,41 @@ export default class Entity {
 		return this._mask;
 	}
 
-	addComponents(...components) {
-		components.forEach((component) => {
-			this._components.set(component.constructor.id, component);
-			this._mask |= component.constructor.mask;
+	addComponents(...comps) {
+		comps.forEach((cmp) => {
+			this._comps.set(cmp.constructor.id, cmp);
+			this._mask |= cmp.constructor.mask;
 		});
 	}
 
-	removeComponents(...components) {
-		components.forEach((component) => {
-			const entityComponent = this._components.get(component);
+	removeComponents(...comps) {
+		comps.forEach((CmpClass) => {
+			const cmp = this._comps.get(CmpClass.id);
 
-			if (entityComponent) {
-				this._components.delete(entityComponent.constructor.id);
-				this._mask &= ~entityComponent.constructor.mask;
+			if (cmp) {
+				this._comps.delete(cmp.constructor.id);
+				this._mask &= ~cmp.constructor.mask;
+				cmp.dispose && cmp.dispose();
 			}
 		});
 	}
 
-	hasComponent(component) {
-		return this._components.has(component);
+	hasComponent(cmp) {
+		return this._comps.has(cmp.id);
 	}
 
-	getComponent(component) {
-		return this._components.get(component);
+	getComponent(cmp) {
+		return this._comps.get(cmp.id);
 	}
 
 	getComponents() {
-		return this._components;
+		return this._comps;
 	}
 
 	dispose() {
-		this._components.forEach((component) => {
-			component.dispose && component.dispose();
+		this._comps.forEach((cmp) => {
+			cmp.dispose && cmp.dispose();
 		});
-		this._components = null;
+		this._comps = null;
 	}
 }

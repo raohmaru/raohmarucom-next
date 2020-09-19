@@ -3,10 +3,10 @@ const style = {
 	lineWidth: 10
 };
 
-export default class Road {
+export class Road {
 	constructor(x1, x2) {
-		this.x1 = x1;
-		this.x2 = x2;
+		this.x1 = x1 - style.lineWidth / 2;
+		this.x2 = x2 + style.lineWidth / 2;
 		this.y = 0
 	}
 

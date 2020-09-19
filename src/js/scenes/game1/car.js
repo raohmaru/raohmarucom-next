@@ -2,40 +2,56 @@ import CarSprite from './car-sprite.js';
 import Cubic from '../../libs/paprika/easing/cubic.js';
 import { Sprite, Movement, MouseMovement, Collision } from '../../comps/index.js';
 
-export default function(carSize, x1, x2) {
-	const sp = new Sprite(new CarSprite(carSize), Game.stage.width / 2, Game.stage.height);
-	const mv = new Movement(x1, x2);
-	const e = Game.ecs
+export function Car(x1, x2) {
+	const size = Game.cfg.carSize;
+	const sp = new Sprite(new CarSprite(size), Game.stage.width / 2, Game.stage.height);
+	const mv = new Movement(x1 + size, x2 - size);
+	const ent = Game.ecs
 		.createEntity('car')
 		.addComponents(sp, mv);
 
-	Game.motion.add({
-		from: { y: sp.y },
-		to: { y: sp.y - Game.stage.height / 3 },
-		duration: 1000,
-		easing: Cubic.Out,
-		onUpdate: (p, model) => {
-			mv.y = model.y;
-		}
-	});
+	const api = {
+		appear: () => {
+			Game.motion.add({
+				from: { y: sp.y },
+				to: { y: sp.y - Game.stage.height / 3 },
+				duration: 1000,
+				easing: Cubic.Out,
+				onUpdate: (p, model) => {
+					mv.y = model.y;
+				}
+			});
+		},
 
-	const onHit = () => {
-		console.log('hit!');
-	};
-
-	return {
-		move: () => {
-			e.addComponents(
+		start: () => {
+			ent.addComponents(
 				new MouseMovement(true, false),
-				new Collision(onHit)
+				new Collision(() => console.log('Car hit'))
 			);
+		},
+
+		stop() {
+			ent.removeComponents(MouseMovement, Collision);
+			sp.x = Game.stage.width / 2;
+			sp.y = Game.stage.height;
+			mv.reset();
 		},
 
 		destroy() {
 			Game.ecs.destroyEntity('car');
-			e = null;
+			ent = null;
 			sp = null;
 			mv = null;
 		}
 	};
+
+	Object.defineProperty(api, 'x', {
+		get: () => sp.x
+	});
+
+	Object.defineProperty(api, 'y', {
+		get: () => sp.y
+	});
+
+	return api;
 };

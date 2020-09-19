@@ -1,5 +1,5 @@
 export function SceneMan(scenes) {
-	let idx = 1;
+	let idx = -1;
 	let scene;
 
 	return {

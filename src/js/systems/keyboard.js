@@ -1,24 +1,7 @@
-import Signal from '../util/signal.js';
+import EventSignal from '../util/event-signal.js';
 
 export function Keyboard(canvas) {
-	const signals = {};
-	const api = {
-		on: (key, cb) => {
-			if (!signals[key]) {
-				signals[key] = new Signal();
-				signals[key](cb);
-			}
-		},
-		off: (key, cb) => {
-			if (signals[key]) {
-				if (cb) {
-					signals[key].remove(cb);
-				} else {
-					signals[key].clear();
-				}
-			}
-		}
-	};
+	const api = EventSignal();
 	// Making the canvas focusable enables the keyboard events on it
 	canvas.setAttribute('tabindex', '1');
 	canvas.focus();
@@ -28,7 +11,7 @@ export function Keyboard(canvas) {
 	function onKeyDown(e) {
 		const code = e.code;
 		api[code] = true;
-		signals[code] && signals[code]();
+		api.fire(code);
 	}
 
 	function onKeyUp(e) {

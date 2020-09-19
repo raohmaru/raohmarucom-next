@@ -5,7 +5,7 @@ export default function pool() {
 			dict.add(item);
 		},
 		pop: () => {
-			const item = dict.size ? dict[dict.size - 1] : undefined;
+			const item = dict.size ? Array.from(dict)[dict.size - 1] : undefined;
 			item && dict.delete(item);
 			return item;
 		}

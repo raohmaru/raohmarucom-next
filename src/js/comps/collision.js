@@ -1,6 +1,8 @@
+function nothing() {}
+
 export class Collision {
 	constructor(cb) {
-		this.cb = cb;
+		this.cb = cb || nothing;
 	}
 
 	hit() {

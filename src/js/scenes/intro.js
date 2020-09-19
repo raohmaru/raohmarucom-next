@@ -1,3 +1,4 @@
+import cfg from '../cfg.js';
 import Scene from './scene.js';
 import pixelateText from '../render/effects/pixelate.js';
 import { create, drop } from '../render/index.js';
@@ -5,7 +6,7 @@ import { create, drop } from '../render/index.js';
 const texts = [
 	['Hello.',                 500, 1500],
 	['If you want to',           0, 1300],
-	['know how I am,',           0, 1300],
+	['know who I am,',           0, 1300],
 	['you need to',              0, 1200],
 	['play a game.',             0, 2000],
 	['Ready?',                1000, 0],
@@ -17,7 +18,7 @@ const texts = [
 ];
 const txtStyle = {
 	font: 'px press_start_kregular, sans-serif',
-	fillStyle: '#000000'
+	fillStyle: cfg.bgcolor
 };
 const bgcolor = {
 	fillStyle: '#ffffff'

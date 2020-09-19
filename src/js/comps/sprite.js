@@ -7,14 +7,16 @@ export class Sprite {
 		this.y = y;
 		this.width = view.canvas.width;
 		this.height = view.canvas.height;
-		this.rect = new Rectangle();
+		this.rect = new Rectangle(this.width, this.height, 0, 0);
+	}
+
+	update(delta, currentTime) {
+		this.view.update && this.view.update(delta, currentTime);
 	}
 
 	getBounds() {
-		this.rect.x      = this.x - this.width / 2;
-		this.rect.y      = this.y - this.height / 2;
-		this.rect.width  = this.width;
-		this.rect.height = this.height;
+		this.rect.x = this.x - this.width / 2;
+		this.rect.y = this.y - this.height / 2;
 		return this.rect;
 	}
 

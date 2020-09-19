@@ -15,19 +15,35 @@ const Entity_addComponents_proxy = {
     }
 };
 
+const Entity_removeComponents_proxy = {
+    apply: function(target, thisArg, argumentsList) {
+		updateGroups(thisArg, argumentsList);
+        target.apply(thisArg, argumentsList);
+		return thisArg;
+    }
+};
+
 const getMask = (comps) => {
-	return comps.reduce( (acc, id) => {
-		if(components.has(id)) {
-			return acc | components.get(id).mask;
+	return comps.reduce( (acc, cmp) => {
+		if(components.has(cmp.id)) {
+			return acc | components.get(cmp.id).mask;
 		}
 		return 0;
 	}, 0);
 };
 
-const updateGroups = (entity, remove) => {
+const updateGroups = (entity, removeFrom) => {
 	for (let group of groups.values()) {
-		if(remove) {
-			group.remove(entity);
+		if(removeFrom) {
+			if (removeFrom === true) {
+				group.remove(entity);
+			} else {
+				removeFrom.forEach(cmp => {
+					if((group._mask & cmp.mask) === cmp.mask) {
+						group.remove(entity);
+					}
+				});
+			}
 		} else {
 			group.match(entity);
 		}
@@ -50,6 +66,7 @@ export default {
 		const entity = new Entity(id);
 		entities.set(id, entity);
 		entity.addComponents = new Proxy(entity.addComponents, Entity_addComponents_proxy);
+		entity.removeComponents = new Proxy(entity.removeComponents, Entity_removeComponents_proxy);
 		return entity;
 	},
 
@@ -72,6 +89,7 @@ export default {
 			return groups.get(mask);
 		}
 		const group = new Group(mask);
+		group.name = comps.map(a => a.name).join(' ');
 		for (let entity of entities.values()) {
 			group.match(entity);
 		}
@@ -81,6 +99,14 @@ export default {
 
 	addSystems(...sys) {
 		sys.forEach(system => systems.add(system));
+	},
+
+	getSystem(fun) {
+		for (const sys of systems) {
+			if (sys.name === fun.name) {
+				return sys;
+			}
+		}
 	},
 
 	update(delta, currentTime) {

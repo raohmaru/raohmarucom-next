@@ -7,13 +7,14 @@ const style = {
 };
 
 export default function(size) {
-	const canvas = create(size, size);
+	let canvas = create(size, size);
 	canvas.clear(style);
 
 	return {
 		canvas,
 		destroy: () => {
 			drop(canvas);
+			canvas = null;
 		}
 	};
 };
