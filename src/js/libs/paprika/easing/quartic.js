@@ -1,14 +1,14 @@
 export default {
-	In: (k) => {
-		return k * k * k * k;
+	In(t) {
+		return t * t * t * t;
 	},
-	Out: (k) => {
-		return 1 - (--k * k * k * k);
+	Out(t) {
+		return 1 - (--t * t * t * t);
 	},
-	InOut: (k) => {
-		if ((k *= 2) < 1) {
-			return 0.5 * k * k * k * k;
+	InOut(t) {
+		if ((t *= 2) < 1) {
+			return 0.5 * t * t * t * t;
 		}
-		return - 0.5 * ((k -= 2) * k * k * k - 2);
+		return - 0.5 * ((t -= 2) * t * t * t - 2);
 	}
 };

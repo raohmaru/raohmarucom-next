@@ -1,16 +1,16 @@
 const sqrt = Math.sqrt;
 
 export default {
-	In: (k) => {
-		return 1 - sqrt(1 - k * k);
+	In(t) {
+		return 1 - sqrt(1 - t * t);
 	},
-	Out: (k) => {
-		return sqrt(1 - (--k * k));
+	Out(t) {
+		return sqrt(1 - (--t * t));
 	},
-	InOut: (k) => {
-		if ((k *= 2) < 1) {
-			return - 0.5 * (sqrt(1 - k * k) - 1);
+	InOut(t) {
+		if ((t *= 2) < 1) {
+			return - 0.5 * (sqrt(1 - t * t) - 1);
 		}
-		return 0.5 * (sqrt(1 - (k -= 2) * k) + 1);
+		return 0.5 * (sqrt(1 - (t -= 2) * t) + 1);
 	}
 };

@@ -10,7 +10,7 @@ import Quartic from './quartic.js';
 import Quintic from './quintic.js';
 import Sinusoidal from './sinusoidal.js';
 
-export {
+export default {
 	Back,
 	Bounce,
 	Circular,

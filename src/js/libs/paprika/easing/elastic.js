@@ -3,35 +3,35 @@ const pow = Math.pow;
 const sin = Math.sin;
 
 export default {
-	In: (k) => {
-		if (k === 0) {
+	In(t) {
+		if (t === 0) {
 			return 0;
 		}
-		if (k === 1) {
+		if (t === 1) {
 			return 1;
 		}
-		return -pow(2, 10 * (k - 1)) * sin((k - 1.1) * 5 * PI);
+		return -pow(2, 10 * (t - 1)) * sin((t - 1.1) * 5 * PI);
 	},
-	Out: (k) => {
-		if (k === 0) {
+	Out(t) {
+		if (t === 0) {
 			return 0;
 		}
-		if (k === 1) {
+		if (t === 1) {
 			return 1;
 		}
-		return pow(2, -10 * k) * sin((k - 0.1) * 5 * PI) + 1;
+		return pow(2, -10 * t) * sin((t - 0.1) * 5 * PI) + 1;
 	},
-	InOut: (k) => {
-		if (k === 0) {
+	InOut(t) {
+		if (t === 0) {
 			return 0;
 		}
-		if (k === 1) {
+		if (t === 1) {
 			return 1;
 		}
-		k *= 2;
-		if (k < 1) {
-			return -0.5 * pow(2, 10 * (k - 1)) * sin((k - 1.1) * 5 * PI);
+		t *= 2;
+		if (t < 1) {
+			return -0.5 * pow(2, 10 * (t - 1)) * sin((t - 1.1) * 5 * PI);
 		}
-		return 0.5 * pow(2, -10 * (k - 1)) * sin((k - 1.1) * 5 * PI) + 1;
+		return 0.5 * pow(2, -10 * (t - 1)) * sin((t - 1.1) * 5 * PI) + 1;
 	}
 };

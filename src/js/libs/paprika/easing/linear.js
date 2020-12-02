@@ -1,3 +1,3 @@
 export default {
-	None: (k) => k
+	None: (t) => t
 };

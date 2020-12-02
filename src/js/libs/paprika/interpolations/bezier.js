@@ -21,10 +21,9 @@ function factorial() {
 export function Bezier(v, k) {
 	let b = 0;
 	const n = v.length - 1,
-		pw = Math.pow,
-		bn = bernstein;
+		pw = Math.pow;
 	for (let i = 0; i <= n; i++) {
-		b += pw(1 - k, n - i) * pw(k, i) * v[i] * bn(n, i);
+		b += pw(1 - k, n - i) * pw(k, i) * v[i] * bernstein(n, i);
 	}
 	return b;
 }

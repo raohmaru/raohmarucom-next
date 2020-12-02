@@ -1,22 +1,22 @@
 const pow = Math.pow;
 
 export default {
-	In: (k) => {
-		return k === 0 ? 0 : pow(1024, k - 1);
+	In(t) {
+		return t === 0 ? 0 : pow(1024, t - 1);
 	},
-	Out: (k) => {
-		return k === 1 ? 1 : 1 - pow(2, - 10 * k);
+	Out(t) {
+		return t === 1 ? 1 : 1 - pow(2, - 10 * t);
 	},
-	InOut: (k) => {
-		if (k === 0) {
+	InOut(t) {
+		if (t === 0) {
 			return 0;
 		}
-		if (k === 1) {
+		if (t === 1) {
 			return 1;
 		}
-		if ((k *= 2) < 1) {
-			return 0.5 * pow(1024, k - 1);
+		if ((t *= 2) < 1) {
+			return 0.5 * pow(1024, t - 1);
 		}
-		return 0.5 * (- pow(2, - 10 * (k - 1)) + 2);
+		return 0.5 * (- pow(2, - 10 * (t - 1)) + 2);
 	}
 };

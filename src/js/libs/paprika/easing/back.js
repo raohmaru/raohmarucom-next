@@ -1,17 +1,17 @@
 export default {
-	In: (k) => {
+	In(t) {
 		const s = 1.70158;
-		return k * k * ((s + 1) * k - s);
+		return t * t * ((s + 1) * t - s);
 	},
-	Out: (k) => {
+	Out(t) {
 		const s = 1.70158;
-		return --k * k * ((s + 1) * k + s) + 1;
+		return --t * t * ((s + 1) * t + s) + 1;
 	},
-	InOut: (k) => {
+	InOut(t) {
 		const s = 1.70158 * 1.525;
-		if ((k *= 2) < 1) {
-			return 0.5 * (k * k * ((s + 1) * k - s));
+		if ((t *= 2) < 1) {
+			return 0.5 * (t * t * ((s + 1) * t - s));
 		}
-		return 0.5 * ((k -= 2) * k * ((s + 1) * k + s) + 2);
+		return 0.5 * ((t -= 2) * t * ((s + 1) * t + s) + 2);
 	}
 };
