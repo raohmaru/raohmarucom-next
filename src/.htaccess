@@ -489,10 +489,6 @@ AddCharset utf-8 .css .js .xml .json .rss .atom
 # ----------------------------------------------------------------------
 
 <IfModule mod_rewrite.c>
-  # Redirects to secure domain
-  RewriteCond %{HTTPS} !=on [NC]
-  RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
-
   # RewriteRule ^/?contact/?$ /contact.php [NC,L,QSA]
   # Wiki
   RewriteRule ^/?rol/wiki/(.*)$ /rol/mediawiki-1.28.2/index.php?title=$1 [PT,L,QSA]
