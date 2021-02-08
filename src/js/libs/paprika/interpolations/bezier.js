@@ -1,8 +1,3 @@
-function bernstein(n, i) {
-	const fc = factorial();
-	return fc(n) / fc(i) / fc(n - i);
-}
-
 function factorial() {
 	const a = [1];
 	return function (n) {
@@ -16,6 +11,11 @@ function factorial() {
 		a[n] = s;
 		return s;
 	};
+}
+
+function bernstein(n, i) {
+	const fc = factorial();
+	return fc(n) / fc(i) / fc(n - i);
 }
 
 export function Bezier(v, k) {

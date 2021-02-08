@@ -1,11 +1,9 @@
-const pow = Math.pow;
-
 export default {
 	In(t) {
-		return t === 0 ? 0 : pow(1024, t - 1);
+		return t === 0 ? 0 : Math.pow(1024, t - 1);
 	},
 	Out(t) {
-		return t === 1 ? 1 : 1 - pow(2, - 10 * t);
+		return t === 1 ? 1 : 1 - Math.pow(2, - 10 * t);
 	},
 	InOut(t) {
 		if (t === 0) {
@@ -15,8 +13,8 @@ export default {
 			return 1;
 		}
 		if ((t *= 2) < 1) {
-			return 0.5 * pow(1024, t - 1);
+			return 0.5 * Math.pow(1024, t - 1);
 		}
-		return 0.5 * (- pow(2, - 10 * (t - 1)) + 2);
+		return 0.5 * (- Math.pow(2, - 10 * (t - 1)) + 2);
 	}
 };
